@@ -1,0 +1,7 @@
+= partial("header")
+
+- if current_user
+  = current_user.id.to_s + "..." + session[:user_id].to_s + "..." + current_user.name.to_s
+- else
+  %a{:href => "/login"} login with github
+
