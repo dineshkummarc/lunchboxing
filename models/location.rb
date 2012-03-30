@@ -7,5 +7,5 @@ class Location
   property :distance,   String
   property :created_at, DateTime
   
-  belongs_to :list
+  belongs_to :list, :required => false
 end

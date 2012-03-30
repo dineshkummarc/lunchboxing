@@ -1,39 +1,66 @@
-require "rubygems"
-require "bundler/setup"
-require "data_mapper"
-require "dm-sqlite-adapter"
+require "./env"
 require "haml"
 require "omniauth"
 require "omniauth-github"
 require "sinatra"
-require "require_all"
-require_rel "models/"
-require_rel "lib/"
-
+require "logger"
+require "./lib/partials"
 
 DataMapper::Logger.new($stdout, :debug)
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/database.db")
-
-DataMapper.finalize
 DataMapper.auto_upgrade!
 
 use OmniAuth::Strategies::GitHub, 'dae71f2bbcadd5288245', '397ce8fea66137e6bf788f83a8d42f52f055d3c6'
 
 enable :sessions
 
+Sinatra::Application.instance_eval do
+  def logger
+    @___logger ||= Logger.new(STDOUT)
+  end
+end
+
+
 helpers do
   def current_user
     @current_user ||= User.get(session[:user_id]) if session[:user_id]
+  end
+
+  def all_locations
+    @locations = Location.all
+  end
+
+  def logger
+    self.class.logger
   end
 end
 
 helpers Sinatra::Partials
 
 get '/' do
+  logger << "BEEF\n"
   haml :index
 end
 
+post '/location/create' do
+  logger.info "#{params}"
+  location = Location.new
+  location.name = params['name']
+  location.address = params['address']
+  location.distance = params['distance']
+  if location.save
+    status 201
+    redirect '/'
+  else
+    status 503
+  end
+end
+
+##
+# authentication
+##
+
+# callback for oauth 
 get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
   user = User.first_or_create({ :uid => auth["uid"]}, {

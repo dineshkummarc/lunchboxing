@@ -1,0 +1,14 @@
+%form{:action => '/location/create', :method => 'POST'}
+  %fieldset
+    %legend New Location
+    %ul
+      %li
+        %label{:for => 'name'} Name:
+        %input{:type => 'text', :name => 'name', :id => 'name'}
+      %li
+        %label{:for => 'address'} Address:
+        %input{:type => 'tex†', :name => 'address', :id => 'address'}
+      %li
+        %label{:for => 'distance'} Estimated Distance:
+        %input{:type => 'text', :name => 'distance', :id => 'distance'}
+    %input{:type => 'submit', :value => 'Save'}
