@@ -7,5 +7,5 @@ class User
   property :nickname,   String
   property :created_at, DateTime
   
-  has_one :list
+  has 1, :list
 end
