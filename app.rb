@@ -46,17 +46,14 @@ get '/auth/:name/callback' do
 end
 
 # any of the following routes should work to sign the user in: 
-#   /sign_up, /signup, /sign_in, /signin, /log_in, /login
-["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
+["/login/?", "/signup/?"].each do |path|
   get path do
     redirect '/auth/github'
   end
 end
 
-# either /log_out, /logout, /sign_out, or /signout will end the session and log the user out
-["/sign_out/?", "/signout/?", "/log_out/?", "/logout/?"].each do |path|
-  get path do
+get '/logout' do
     session[:user_id] = nil
     redirect '/'
-  end
 end
+
