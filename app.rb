@@ -43,6 +43,10 @@ get '/' do
   haml :index
 end
 
+get '/locations' do
+  haml :locations
+end
+
 post '/location/create' do
   logger.info "#{params}"
   location = Location.new

@@ -1,13 +1,13 @@
 = partial("header")
-
-- if current_user
-  = partial("loggedin")
-- else
+.container-fluid
   .row-fluid
-    .span9
-      .hero-unit        
-        .loggedout
-          %h3 
-            %a{:href => "/login"} login with github
+    - if current_user
+      = partial("loggedin")
+    - else
+      .span9
+        .hero-unit
+          .loggedout
+            %h3 
+              %a{:href => "/login"} login with github
 
 = partial("footer")

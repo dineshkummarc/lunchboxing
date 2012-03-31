@@ -13,9 +13,8 @@ autocomplete = new google.maps.places.Autocomplete(input, options);
 google.maps.event.addListener(autocomplete, 'place_changed', function(){
   var place = autocomplete.getPlace();
   var name = place.name
-  var address = place.formatted_address
+  var address = place.vicinity
   $('#locationName').val ( name )
   $('#locationAddress').val( address );
-  console.log(place.formatted_address);
 });
 

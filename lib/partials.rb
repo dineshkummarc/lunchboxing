@@ -2,6 +2,7 @@ module Sinatra::Partials
   def partial(template, *args)
     template_array = template.to_s.split('/')
     template = template_array[0..-2].join('/') + "/_#{template_array[-1]}"
+    logger.debug("rendering partial: " + template)
     options = args.last.is_a?(Hash) ? args.pop : {}
     options.merge!(:layout => false)
     locals = options[:locals] || {}

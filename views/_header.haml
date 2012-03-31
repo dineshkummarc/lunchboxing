@@ -3,5 +3,17 @@
   %head
     %title Lunchboxing
     %link{:href => '/css/bootstrap.css',:rel => 'stylesheet'}
-  %body
-    .container-fluid
+  %body{:style => 'padding-top:40px;'}
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          
+          %a.brand Lunchboxing
+
+          - if current_user
+            %p.navbar-text.pull-right
+              = current_user.name
