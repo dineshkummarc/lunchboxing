@@ -1,0 +1,9 @@
+.row-fluid
+  .span2
+    = current_user.id.to_s + "..." + session[:user_id].to_s + "..." + current_user.name.to_s
+    %a{:href => "/logout"} logout
+  .span2
+    = partial("locations")
+  .span6
+    = partial("add_location")
+

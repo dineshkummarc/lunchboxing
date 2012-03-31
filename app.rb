@@ -20,6 +20,7 @@ Sinatra::Application.instance_eval do
   end
 end
 
+set :haml, :format => :html5
 
 helpers do
   def current_user
