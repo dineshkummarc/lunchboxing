@@ -2,17 +2,16 @@
   %fieldset
     %legend New Location
     .control-group
-      
       %label{:class => 'control-label',:for => 'name'} Name:
       .controls
-        %input{:type => 'text', :name => 'name', :id => 'name'}
-          
+        %input{:type => 'text', :name => 'name', :id => 'locationName'}
+    .control-group      
       %label{:class => 'control-label',:for => 'address'} Address:
       .controls
-        %input{:type => 'tex†', :name => 'address', :id => 'address'}
-            
+        %input{:type => 'tex†', :name => 'address', :id => 'locationAddress'}
+    .control-group        
       %label{:class => 'control-label',:for => 'distance'} Estimated Distance:
       .controls
-        %input{:type => 'text', :name => 'distance', :id => 'distance'}
-      
-    %input{:type => 'submit', :value => 'Save'}
+        %input{:type => 'text', :name => 'distance', :id => 'locationDistance'}
+    .form-actions
+      %button.btn.btn-primary{:type => 'submit'} Save
