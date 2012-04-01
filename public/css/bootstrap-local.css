@@ -1,0 +1,17 @@
+html {
+    background: url('/img/logo.png') no-repeat center 0px fixed;
+	background-size: cover;
+    
+}
+
+body {
+    background: none;
+  }
+
+fieldset {
+    background-color: whiteSmoke;
+  }
+  
+.hero-unit {
+    background: none;
+}
