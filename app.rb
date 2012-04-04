@@ -10,8 +10,6 @@ DataMapper::Logger.new($stdout, :debug)
 
 DataMapper.auto_upgrade!
 
-use OmniAuth::Strategies::GitHub, 'dae71f2bbcadd5288245', '397ce8fea66137e6bf788f83a8d42f52f055d3c6'
-
 enable :sessions
 
 Sinatra::Application.instance_eval do
@@ -39,7 +37,6 @@ end
 helpers Sinatra::Partials
 
 get '/' do
-  logger << "BEEF\n"
   haml :index
 end
 
@@ -64,6 +61,12 @@ end
 ##
 # authentication
 ##
+
+if production?
+  use OmniAuth::Strategies::GitHub, '9c7ba91b25c1e0f66dbc', '8fc5b0db2249738c2704aae9d3fcd57f794e327c'
+else
+  use OmniAuth::Strategies::GitHub, 'dae71f2bbcadd5288245', '397ce8fea66137e6bf788f83a8d42f52f055d3c6'
+end
 
 # callback for oauth 
 get '/auth/:name/callback' do
