@@ -1,6 +1,6 @@
 html {
-    background: url('/img/logo.png') no-repeat center 0px fixed;
-	background-size: cover;
+    background: url('/img/logo.png') no-repeat center 40px fixed;
+	background-size: 100% 120%;
     
 }
 
@@ -10,6 +10,8 @@ body {
 
 fieldset {
     background-color: whiteSmoke;
+    border: 1px solid #ddd;
+    padding: 10px;
   }
   
 .hero-unit {

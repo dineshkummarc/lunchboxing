@@ -25,13 +25,36 @@ helpers do
     @current_user ||= User.get(session[:user_id]) if session[:user_id]
   end
 
+  def logged_in?
+    redirect '/' unless current_user
+  end
+
   def all_locations
     @locations = Location.all
+  end
+
+  def user_listed_locations
+    lists = List.all( :user_id => current_user.id )
+    lists.each do |list|
+      locations = Location.find( :list_id => list.id )
+      locations.each do |location|
+        yield location
+      end
+    end
   end
 
   def logger
     self.class.logger
   end
+
+  def winner?
+    choices ||= []
+    all_locations.each do |location|
+      choices << location.name
+    end
+    choices.sample
+  end
+
 end
 
 helpers Sinatra::Partials
@@ -40,11 +63,16 @@ get '/' do
   haml :index
 end
 
+####
+# Locations
+####
 get '/locations' do
+  logged_in?
   haml :locations
 end
 
 post '/location/create' do
+  logged_in?
   logger.info "#{params}"
   location = Location.new
   location.name = params['name']
@@ -58,10 +86,27 @@ post '/location/create' do
   end
 end
 
-##
-# authentication
-##
+####
+# Lists
+####
+get '/list' do
+  logged_in?
+  haml :list
+end
 
+post '/list/add' do
+  logged_in?
+  logger.info "#{params}"
+  list = List.first_or_create({:user => {:id => current_user.id}})
+  location = Location.find(params["location_id"])
+  location.list_id = list.id
+  
+  redirect '/list'
+end
+
+####
+# authentication
+####
 if production?
   use OmniAuth::Strategies::GitHub, '9c7ba91b25c1e0f66dbc', '8fc5b0db2249738c2704aae9d3fcd57f794e327c'
 else

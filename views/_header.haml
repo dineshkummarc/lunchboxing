@@ -5,18 +5,20 @@
     %link{:href => '/css/bootstrap.css',:rel => 'stylesheet'}
     %link{:href => '/css/bootstrap-local.css', :rel => 'stylesheet'}
   %body{:style => 'padding-top:40px;'}
-    - if current_user
-      .navbar.navbar-fixed-top
-        .navbar-inner
-          .container
-            %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
 
+          - if current_user    
             %p.navbar-text.pull-right
               = current_user.name
 
             %ul.nav.pull-right
               %li
                 %a{:href => '/locations'} Locations
+          - else
+            %p.navbar-text &nbsp;
