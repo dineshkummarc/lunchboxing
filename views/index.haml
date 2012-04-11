@@ -1,7 +1,7 @@
 = partial("header")
 .container
   .row
-    .span12
+    .span12{:style => "background: none;"}
       - if current_user
         = partial("loggedin")
       - else

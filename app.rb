@@ -80,9 +80,47 @@ post '/location/create' do
   location.distance = params['distance']
   if location.save
     status 201
-    redirect '/'
+    redirect '/locations'
   else
     status 503
+  end
+end
+
+get '/location/:id' do
+  @location = Location.get(params[:id])
+  haml :location_view
+end
+
+get '/location/:id/edit' do
+  @location = Location.get(params[:id])
+  haml :location_edit
+end
+
+put '/location/:id' do
+  @location = Location.get(params[:id])
+  @location.name = params['name']
+  @location.address = params['address']
+  @location.distance = params['distance']
+
+  if @location.save
+    status 201
+    redirect "/location/#{@location.id}"
+  else
+    status 500
+  end
+end
+
+
+
+post '/location/destroy' do
+  logged_in?
+  location = Location.first(:id => params['locationID'])
+  if location.destroy
+    logger.debug "Destroying Location: #{location.name}"
+    status 201
+    redirect '/locations'
+  else
+    status 500
   end
 end
 
@@ -96,9 +134,11 @@ end
 
 post '/list/add' do
   logged_in?
-  logger.info "#{params}"
-  list = List.first_or_create({:user => {:id => current_user.id}})
-  location = Location.find(params["location_id"])
+  logger.info "params: #{params}"
+  list = List.first_or_create(:user_id => current_user.id)
+  logger.info "#{list.inspect}"
+  location = Location.first(:id => params['locationID'])
+  logger.info "location #{location.name}"
   location.list_id = list.id
   
   redirect '/list'

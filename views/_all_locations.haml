@@ -1,10 +1,18 @@
 - all_locations.each do |location|
   %p
-    %h3 
+    %h3.locationName 
       = location.name 
-    %p
-      = location.address
-    %p
-      %a{:href => '/list/add'}
-      %i.icon-plus
+    = location.address
+    .locationButtons
+      %form.float-left{:action => '/list/add', :method => 'POST'}
+        %input{:type => 'hidden', :name => 'locationID', :value => "#{location.id}"}
+          %button.btn.btn-success{:type => 'submit'} 
+            %i.icon-plus.icon-white
 
+      %a.btn.btn-primary.float-left{:href => "/location/#{location.id}/edit"}
+        %i.icon-pencil.icon-white
+        
+      %form{:action => '/location/destroy', :method => 'POST', :id => "locationDestroy"}
+        %input{:type => 'hidden', :name => 'locationID', :value => "#{location.id}"}
+          %button.btn.btn-danger{:type => 'submit'}
+            %i.icon-remove.icon-white

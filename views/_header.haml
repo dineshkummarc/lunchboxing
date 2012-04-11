@@ -8,17 +8,28 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
+          %a.brand{:href => "/"}
+            %img{:src => "img/box.png"}
+
           %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
 
           - if current_user    
-            %p.navbar-text.pull-right
-              = current_user.name
-
             %ul.nav.pull-right
               %li
                 %a{:href => '/locations'} Locations
+
+              %li.divider-vertical
+
+              %li.dropdown
+                %a.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
+                  = current_user.name
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => '/logout'} Log Out
+              
           - else
             %p.navbar-text &nbsp;

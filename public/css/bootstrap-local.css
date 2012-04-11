@@ -1,19 +1,44 @@
 html {
-    background: url('/img/logo.png') no-repeat center 40px fixed;
+  background: url('/img/logo.png') no-repeat center 40px fixed;
 	background-size: 100% 120%;
     
 }
 
+[class*="span"] {
+  background-color: rgba(245, 245, 239, 0.6);
+  padding: 15px;
+  margin-top: 5px;
+}
+
 body {
-    background: none;
+  background: none;
   }
 
 fieldset {
-    background-color: whiteSmoke;
-    border: 1px solid #ddd;
-    padding: 10px;
-  }
+  background-color: rgba(245, 245, 239, 0.9);
+  border: 1px solid #ddd;
+  padding: 10px;
+}
   
 .hero-unit {
-    background: none;
+    background: none !important;
+}
+
+.locationButtons .float-left {
+  float: left;
+}
+
+.locationButtons .float-right{
+  float: right;
+}
+#locationDestroy {
+  float: right;
+}
+
+.locationButtons {
+  padding-top: 5px;
+}
+
+.locationName {
+  clear: both;
 }
