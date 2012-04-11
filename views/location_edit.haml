@@ -1,0 +1,25 @@
+= partial("header")
+.container
+  .row
+    .span6.offset4
+      %form.form-horizontal{:action => "/location/#{@location.id}", :method => 'POST'}
+        %fieldset
+          %legend Edit Location
+          %input{:name => "_method", :type => 'hidden', :value => 'put'}
+          .control-group
+            %label{:class => 'control-label',:for => 'name'} Name:
+            .controls
+              %input{:type => 'text', :name => 'name', :id => 'locationName', :value => "#{@location.name}"}
+          .control-group      
+            %label{:class => 'control-label',:for => 'address'} Address:
+            .controls
+              %input{:type => 'tex†', :name => 'address', :id => 'locationAddress', :value => "#{@location.address}"}
+          .control-group        
+            %label{:class => 'control-label',:for => 'distance'} Estimated Distance:
+            .controls
+              %input{:type => 'text', :name => 'distance', :id => 'locationDistance', :value => "#{@location.distance}"}
+          .form-actions
+            %button.btn.btn-success{:type => 'submit'} Save
+
+
+= partial("footer")
