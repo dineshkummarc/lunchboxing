@@ -33,12 +33,13 @@ helpers do
     @locations = Location.all
   end
 
-  def user_listed_locations
-    lists = List.all( :user_id => current_user.id )
+  def user_listed_locations(&block)
+    lists = List.find( :user_id => current_user.id )
     lists.each do |list|
-      locations = Location.find( :list_id => list.id )
+      locations = Location.all( :list_id => list.id )
       locations.each do |location|
-        yield location
+        logger.info "#{location.name}"
+        block.call location
       end
     end
   end
@@ -49,7 +50,7 @@ helpers do
 
   def winner?
     choices ||= []
-    all_locations.each do |location|
+    user_listed_locations do |location|
       choices << location.name
     end
     choices.sample
@@ -140,7 +141,8 @@ post '/list/add' do
   location = Location.first(:id => params['locationID'])
   logger.info "location #{location.name}"
   location.list_id = list.id
-  
+  location.save
+  logger.info "location's list: #{location.list_id}"
   redirect '/list'
 end
 
