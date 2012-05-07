@@ -36,8 +36,7 @@ helpers do
   def user_listed_locations(&block)
     lists = List.find( :user_id => current_user.id )
     lists.each do |list|
-      locations = Location.all( :list_id => list.id )
-      locations.each do |location|
+      list.location.each do |location|
         logger.info "#{location.name}"
         block.call location
       end
